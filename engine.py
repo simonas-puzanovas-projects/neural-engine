@@ -10,7 +10,6 @@ class Value:
     def __init__(self, value):
         self.data = value
         self.grad = 0.0
-        self.set = False
         self._backward = lambda: None
         self.children = set()
 
@@ -156,9 +155,9 @@ class Layer:
 
         if self.activation == Activation.LOG_SOFTMAX:
             neurons = log_softmax(neurons)
+
         elif self.activation == Activation.RELU:
-            for n in neurons:
-                n = n.relu()
+            neurons = [n.relu() for n in neurons]
 
         return neurons
 
