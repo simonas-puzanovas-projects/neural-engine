@@ -25,7 +25,7 @@ class NeuralNetwork:
                 for p in l.parameters():
                     p.data -= self.learning_rate * p.grad
 
-    def train(self, input_matrix, target_matrix, learning_rate):
+    def train(self, input_matrix, target_matrix, classifier=False):
         training_step = 0
 
         for i in range(len(input_matrix)):
@@ -34,13 +34,26 @@ class NeuralNetwork:
             for seq in self.sequence:
                 input_output_buffer = seq.forward(input_output_buffer)
 
-            loss_result = loss(target_matrix[i], input_output_buffer)
-            loss_result.backward()
+            if classifier:
+                highest_output_index = 0
+                for j in range(1,len(input_output_buffer)):
+                    if input_output_buffer[j].data > input_output_buffer[highest_output_index].data:
+                        highest_output_index = j
 
-            print("step:", training_step, "loss:", round(loss_result.data, 5))
+                loss = -input_output_buffer[target_matrix[i]]
+                print("step:", training_step, "loss:", round(loss.data, 5),"correct prediction: ", highest_output_index == target_matrix[i])
 
-            self.update_weights(learning_rate)
-            self.zero_grad()
+                loss.backward()
+                self.update_weights()
+                self.zero_grad()
+
+            else:
+                loss_result = loss(target_matrix[i], input_output_buffer)
+                print("step:", training_step, "loss:", round(loss_result.data, 5))
+
+                loss_result.backward()
+                self.update_weights()
+                self.zero_grad()
 
             training_step += 1
 
