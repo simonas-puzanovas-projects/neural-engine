@@ -1,12 +1,14 @@
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 from neural_network import NeuralNetwork, LinearConfig
 from engine import Activation
 from apple_gym import AppleGym
 import pygame
 
-
 apple_gym = AppleGym()
 
-nn = NeuralNetwork(
+nn = NeuralNetwork(sequence=
     [LinearConfig(2,10, activation=Activation.RELU),
      LinearConfig(10,10, activation=Activation.RELU),
      LinearConfig(10,4,activation=Activation.LOG_SOFTMAX),
@@ -22,8 +24,11 @@ while running:
 
     if apple_gym.score == 150 and not solved:
         apple_gym.framerate = 10
-        print("Solved :) slowing down to 10fps")
         solved = True
+        nn.save("models/test.json")
+
+        print("Model saved, slowing down to 10fps.")
+
 
     state = apple_gym.state()
     prediction = nn.forward(state)

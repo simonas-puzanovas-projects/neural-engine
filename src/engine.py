@@ -3,8 +3,8 @@ import math
 from enum import Enum
 
 class Activation(Enum):
-    LOG_SOFTMAX = 0
-    RELU = 1
+    LOG_SOFTMAX = "log_softmax"
+    RELU = "relu"
 
 class Value:
     def __init__(self, value):

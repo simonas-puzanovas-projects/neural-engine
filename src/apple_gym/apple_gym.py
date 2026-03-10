@@ -24,7 +24,7 @@ class AppleGym:
         self.player_steps = 0
         self.max_steps = 20
         self.score = 0
-        self.framerate = 240
+        self.framerate = 1000
         self.max_score = 0
 
         pygame.init()

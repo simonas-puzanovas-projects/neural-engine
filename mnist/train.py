@@ -7,7 +7,7 @@ BATCH_SIZE = 50
 print("getting the data...")
 ds = load_dataset("ylecun/mnist")
 
-nn = NeuralNetwork(
+nn = NeuralNetwork(sequence=
     [LinearConfig(28*28,50, activation=Activation.RELU),
      LinearConfig(50,50, activation=Activation.RELU),
      LinearConfig(50,10,activation=Activation.LOG_SOFTMAX),
