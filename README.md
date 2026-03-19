@@ -35,10 +35,25 @@ Python ≤ 3.13.12 — pygame does not support Python 3.14+.
 
 An agent on a 10×10 grid learns to reach an apple using policy gradients. State is the relative position of the apple. Actions are up/down/left/right.
 
+## Instructions
+
 ```
 pip install pygame
-python train_apple_gym.py
 ```
+Play already trained model
+```
+python apple_gym/load.py
+```
+Train the model.
+The training part is sped up until reaching a score of 150 without failing, then it saves the model in /models folder.
+```
+python apple_gym/train.py
+```
+
+The MNIST training is experimental and slow because it's not CNN, trains on CPU and each Value is an object, so the matrix multiplication is very slow.
+While the apple gym gives only one input, the digit input for training is 784 inputs (28X28).
+
+
 
 ## License
 
